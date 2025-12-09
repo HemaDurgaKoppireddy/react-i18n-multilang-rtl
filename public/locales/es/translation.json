@@ -1,0 +1,8 @@
+{
+  "title": "Demostración internacionalizada",
+  "description": "Cambia el idioma para ver LTR ↔ RTL y el formateo local.",
+  "greeting": "Hola, {{name}}!",
+  "currentDate": "Fecha actual: {{date}}",
+  "price": "Precio: {{price}}",
+  "sampleText": "Este es un párrafo de muestra para mostrar la dirección del diseño."
+}

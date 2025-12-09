@@ -1,0 +1,8 @@
+{
+  "title": "Internationalized Demo",
+  "description": "Switch languages to see LTR ↔ RTL and locale formatting.",
+  "greeting": "Hello, {{name}}!",
+  "currentDate": "Current date: {{date}}",
+  "price": "Price: {{price}}",
+  "sampleText": "This is a sample paragraph to show layout direction."
+}

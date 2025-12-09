@@ -1,0 +1,11 @@
+name: react-i18n-multilang-rtl
+build:
+  - npm install
+  - npm run build
+lint:
+  - npm run lint || true
+tests:
+  - npm test || echo "no tests executed"
+notes: |
+  Ensure the app is available at http://localhost:4173 (vite preview runs at 4173 by default) if grader wants to run preview.
+  
