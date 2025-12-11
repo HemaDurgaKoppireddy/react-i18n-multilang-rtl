@@ -1,14 +1,18 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import "./index.css";
 import "./i18n";
+import "./styles.css";
+
+import { ProductProvider } from "./context/ProductContext";
+import { AuthProvider } from "./context/AuthContext";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ProductProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ProductProvider>
   </React.StrictMode>
 );

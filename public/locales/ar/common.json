@@ -1,0 +1,66 @@
+{
+  "appName": "المتجر العالمي",
+  "nav": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "cart": "السلة"
+  },
+  "search": {
+    "placeholder": "ابحث عن المنتجات..."
+  },
+  "product": {
+    "view": "عرض",
+    "addToCart": "أضف إلى السلة",
+    "price": "السعر",
+    "category": "الفئة",
+    "description": "الوصف",
+    "details": "تفاصيل المنتج",
+    "noProducts": "لم يتم العثور على منتجات"
+  },
+  "categories": {
+    "title": "جميع الفئات",
+    "noProducts": "لا توجد منتجات في هذه الفئة"
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلة التسوق فارغة",
+    "remove": "إزالة",
+    "total": "المجموع",
+    "checkout": "إنهاء الشراء"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول",
+    "registerTitle": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "name": "الاسم",
+    "switchToRegister": "إنشاء حساب جديد",
+    "switchToLogin": "هل لديك حساب بالفعل؟",
+    "submit": "إرسال"
+  },
+  "home": {
+    "welcome": "وجهتك الشاملة للتسوق عبر الإنترنت",
+    "subtitle": "تسوق من آلاف المنتجات في الإلكترونيات والموضة والمنزل والمزيد",
+    "categories": "الفئات",
+    "trending": "المنتجات الرائجة",
+    "featured": "منتجات مميزة",
+    "searchResults": "نتائج البحث عن"
+  },
+
+  "category": {
+    "mobilePhones": "الهواتف المحمولة",
+    "laptops": "أجهزة اللابتوب",
+    "headphones": "سماعات",
+    "fashion": "الأزياء",
+    "sports": "الرياضة",
+    "homeKitchen": "المنزل والمطبخ"
+  },
+  "products": {
+    "title": "المنتجات"
+  }
+
+
+}

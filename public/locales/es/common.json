@@ -1,0 +1,65 @@
+{
+  "appName": "Tienda Global",
+  "nav": {
+    "home": "Inicio",
+    "products": "Productos",
+    "categories": "Categorías",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "cart": "Carrito"
+  },
+  "search": {
+    "placeholder": "Buscar productos..."
+  },
+  "product": {
+    "view": "Ver",
+    "addToCart": "Añadir al carrito",
+    "price": "Precio",
+    "category": "Categoría",
+    "description": "Descripción",
+    "details": "Detalles del Producto",
+    "noProducts": "No se encontraron productos"
+  },
+  "categories": {
+    "title": "Todas las Categorías",
+    "noProducts": "No hay productos disponibles en esta categoría"
+  },
+  "cart": {
+    "title": "Tu Carrito",
+    "empty": "Tu carrito está vacío",
+    "remove": "Eliminar",
+    "total": "Total",
+    "checkout": "Pagar"
+  },
+  "auth": {
+    "loginTitle": "Iniciar sesión",
+    "registerTitle": "Registrarse",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "switchToRegister": "Crear cuenta",
+    "switchToLogin": "¿Ya tienes una cuenta?",
+    "submit": "Enviar"
+  },
+  "home": {
+    "welcome": "Tu destino de compras en línea",
+    "subtitle": "Compra entre miles de productos en electrónica, moda, hogar y más",
+    "categories": "Categorías",
+    "trending": "Productos populares",
+    "featured": "Productos Destacados",
+    "searchResults": "Resultados de búsqueda para"
+  },
+
+  "category": {
+    "mobilePhones": "Teléfonos móviles",
+    "laptops": "Portátiles",
+    "headphones": "Auriculares",
+    "fashion": "Moda",
+    "sports": "Deportes",
+    "homeKitchen": "Hogar y cocina"
+  },
+  "products": {
+    "title": "Productos"
+  }
+
+}

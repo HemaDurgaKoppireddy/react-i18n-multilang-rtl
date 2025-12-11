@@ -1,59 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-function fileToBase64(file){ return new Promise((res, rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+export default function ProductForm({ onSubmit, initial }) {
+  const { t, i18n } = useTranslation("common");
+  const [price, setPrice] = useState(initial?.price || "");
+  const [category, setCategory] = useState(initial?.category || "");
+  const [names, setNames] = useState(initial?.names || { en: "", es: "", ar: "", ja: "" });
 
-export default function ProductForm({ onSubmit, initial=null }){
-  const { t, i18n } = useTranslation();
-  const [title,setTitle]=useState("");
-  const [excerpt,setExcerpt]=useState("");
-  const [price,setPrice]=useState("");
-  const [imageUrl,setImageUrl]=useState("");
-  const [file, setFile] = useState(null);
-  const [category,setCategory]=useState("");
-  const [errors,setErrors]=useState({});
+  function setName(lang, val){
+    setNames(prev => ({ ...prev, [lang]: val }));
+  }
 
-  useEffect(()=>{ if(initial){ setTitle(initial.title||""); setExcerpt(initial.excerpt||""); setPrice(initial.price||""); setImageUrl(initial.image||""); setCategory(initial.category||""); } },[initial]);
-
-  async function handleSubmit(e){
+  function submit(e){
     e.preventDefault();
-    const errs={};
-    if(!title.trim()) errs.title = t("nameRequired") || "Name required";
-    if(!price || isNaN(Number(price))) errs.price = t("invalidPrice") || "Invalid price";
-    setErrors(errs); if(Object.keys(errs).length) return;
-
-    let finalImage = imageUrl;
-    if(file) finalImage = await fileToBase64(file);
-    const id = initial?.id || `u${Date.now()}`;
-    const product = { id, title, excerpt, price: Number(price), image: finalImage, category, locale: i18n.resolvedLanguage || i18n.language || "en" };
-    onSubmit(product);
-    if(!initial){ setTitle(""); setExcerpt(""); setPrice(""); setImageUrl(""); setFile(null); setCategory(""); }
+    // minimum: at least one name provided
+    const hasName = Object.values(names).some(v => v && v.trim());
+    if(!hasName){ alert(t("errors.nameRequired")); return; }
+    onSubmit({ price, category, names });
   }
 
   return (
-    <form className="glass-card" onSubmit={handleSubmit}>
-      <div className="form-row">
-        <input className="input" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Product name" />
-        <input className="input" value={price} onChange={e=>setPrice(e.target.value)} placeholder="Price" />
+    <form onSubmit={submit}>
+      <div className="form-group">
+        <label>{t("labels.price")}</label>
+        <input value={price} onChange={e=>setPrice(e.target.value)} type="number" step="0.01" />
       </div>
-      <div className="form-row">
-        <input className="input" value={category} onChange={e=>setCategory(e.target.value)} placeholder="Category" />
-      </div>
-      <div className="form-row">
-        <textarea className="input" value={excerpt} onChange={e=>setExcerpt(e.target.value)} placeholder="Short description" />
-      </div>
-      <div className="form-row">
-        <input className="input" value={imageUrl} onChange={e=>setImageUrl(e.target.value)} placeholder="Image URL (or upload)" />
-        <input type="file" onChange={e=>setFile(e.target.files[0])} />
+      <div className="form-group">
+        <label>{t("labels.category")}</label>
+        <input value={category} onChange={e=>setCategory(e.target.value)} />
       </div>
 
-      {errors.title && <div style={{ color:"red" }}>{errors.title}</div>}
-      {errors.price && <div style={{ color:"red" }}>{errors.price}</div>}
+      <fieldset style={{border:"1px solid #eee", padding:10, marginBottom:10}}>
+        <legend>{t("labels.translations")}</legend>
+        <div className="form-group">
+          <label>English</label>
+          <input value={names.en} onChange={e=>setName("en", e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>Español</label>
+          <input value={names.es} onChange={e=>setName("es", e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>العربية</label>
+          <input value={names.ar} onChange={e=>setName("ar", e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>日本語</label>
+          <input value={names.ja} onChange={e=>setName("ja", e.target.value)} />
+        </div>
+      </fieldset>
 
-      <div style={{ display:"flex", gap:8 }}>
-        <button className="btn btn-primary" type="submit">{initial ? t("save") : t("add")}</button>
-        <button type="button" className="btn" onClick={()=>{ /* no-op */ }}>Cancel</button>
-      </div>
+      <button className="btn btn-primary" type="submit">{t("save")}</button>
     </form>
   );
 }

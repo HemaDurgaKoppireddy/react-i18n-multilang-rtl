@@ -1,0 +1,65 @@
+{
+  "appName": "グローバルショップ",
+  "nav": {
+    "home": "ホーム",
+    "products": "商品一覧",
+    "categories": "カテゴリー",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "cart": "カート"
+  },
+  "search": {
+    "placeholder": "商品を検索..."
+  },
+  "product": {
+    "view": "詳細",
+    "addToCart": "カートに追加",
+    "price": "価格",
+    "category": "カテゴリー",
+    "description": "説明",
+    "details": "商品詳細",
+    "noProducts": "商品が見つかりません"
+  },
+  "categories": {
+    "title": "すべてのカテゴリー",
+    "noProducts": "このカテゴリーには商品がありません"
+  },
+  "cart": {
+    "title": "ショッピングカート",
+    "empty": "カートは空です",
+    "remove": "削除",
+    "total": "合計",
+    "checkout": "購入手続きへ"
+  },
+  "auth": {
+    "loginTitle": "ログイン",
+    "registerTitle": "新規登録",
+    "email": "メール",
+    "password": "パスワード",
+    "name": "名前",
+    "switchToRegister": "アカウント作成",
+    "switchToLogin": "すでにアカウントがありますか？",
+    "submit": "送信"
+  },
+  "home": {
+    "welcome": "ワンストップオンラインショッピングへようこそ",
+    "subtitle": "家電・ファッション・生活用品など数千の商品をチェック",
+    "categories": "カテゴリー",
+    "trending": "人気の商品",
+    "featured": "おすすめ商品",
+    "searchResults": "検索結果："
+  },
+
+  "category": {
+    "mobilePhones": "スマートフォン",
+    "laptops": "ノートパソコン",
+    "headphones": "ヘッドホン",
+    "fashion": "ファッション",
+    "sports": "スポーツ",
+    "homeKitchen": "ホーム＆キッチン"
+  },
+  "products": {
+    "title": "製品一覧"
+  }
+
+}

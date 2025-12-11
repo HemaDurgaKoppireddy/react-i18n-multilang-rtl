@@ -1,67 +1,45 @@
+// src/components/ProductCard.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useProducts } from "../context/ProductContext";
+import { useTranslation } from "react-i18next";
 
-export default function ProductCard({ item, onEdit, onDelete }) {
-  const nav = useNavigate();
+export default function ProductCard({ product }) {
+  const { addToCart, formatPrice } = useProducts();
+  const { t, i18n } = useTranslation();
 
-  // 🚨 Prevent crash if item is missing or invalid
-  if (!item || typeof item !== "object") {
-    return null; // do not render anything
-  }
+  const lang = i18n.language || "en";
 
-  const {
-    id,
-    title = "Untitled Product",
-    price = 0,
-    excerpt = "",
-    image = "https://via.placeholder.com/300x200?text=No+Image",
-    category = "",
-  } = item;
+  const name = product.names?.[lang] || product.names?.en || "";
+  const category = product.category?.[lang] || product.category?.en || "";
+  const priceText = formatPrice(product.price, lang);
 
   return (
-    <div className="card">
-      <img className="prod-img" src={image} alt={title} />
-
-      <div className="prod-title">{title}</div>
-
-      <div className="muted" style={{ marginTop: 6 }}>{excerpt}</div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 12,
-        }}
-      >
-        <div style={{ color: "var(--accent)", fontWeight: 700 }}>
-          ${Number(price).toFixed(2)}
-        </div>
-
-        <div style={{ display: "flex", gap: 8 }}>
-          <button className="btn" onClick={() => nav(`/products/${id}`)}>
-            View
-          </button>
-
-          {onEdit && (
-            <button className="btn" onClick={() => onEdit(item)}>
-              Edit
-            </button>
-          )}
-
-          {onDelete && (
-            <button
-              className="btn"
-              style={{ background: "#f87171", color: "white" }}
-              onClick={() => onDelete(id)}
-            >
-              Delete
-            </button>
-          )}
-        </div>
+    <div className="e-card">
+      <div className="e-card-media">
+        <img src={product.image} alt={name} />
       </div>
 
-      <div className="muted" style={{ marginTop: 8 }}>{category}</div>
+      <div className="e-card-body">
+        <h3 className="e-card-title">{name}</h3>
+        <p className="e-card-category">{category}</p>
+
+        <div className="e-card-bottom">
+          <div className="price-block">
+            <span className="price">{priceText}</span>
+          </div>
+
+          <div className="e-card-actions">
+            <Link to={`/product/${product.id}`} className="btn ghost">
+              {t("product.view")}
+            </Link>
+
+            <button className="btn primary" onClick={() => addToCart(product.id)}>
+              {t("product.addToCart")}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

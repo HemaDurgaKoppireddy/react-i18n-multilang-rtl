@@ -1,89 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
-import CategoriesPage from "./pages/CategoriesPage";
-import AddProductPage from "./pages/AddProductPage";
-import LoginPage from "./pages/LoginPage";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import AddProduct from "./pages/AddProduct";
+import ProductDetails from "./pages/ProductDetails";
+import Category from "./pages/Category";  // Make sure this file exists
+import Cart from "./pages/Cart";
+import Settings from "./pages/Settings";
+
+import { loadLanguage } from "./i18n";
 
 export default function App() {
-  const { t } = useTranslation();
-
-  // SEARCH STATE
-  const [search, setSearch] = useState("");
-
-  // USER PRODUCTS
-  const [userProducts, setUserProducts] = useState(
-    JSON.parse(localStorage.getItem("userProducts") || "[]")
-  );
-
-  // SAVE TO LOCAL STORAGE
   useEffect(() => {
-    localStorage.setItem("userProducts", JSON.stringify(userProducts));
-  }, [userProducts]);
-
-  // ADD PRODUCT
-  function addProduct(product) {
-    const updated = [...userProducts, product];
-    setUserProducts(updated);
-  }
-
-  // EDIT PRODUCT
-  function editProduct(id, updatedData) {
-    const updated = userProducts.map((p) =>
-      p.id === id ? { ...p, ...updatedData } : p
-    );
-    setUserProducts(updated);
-  }
-
-  // DELETE PRODUCT
-  function deleteProduct(id) {
-    const updated = userProducts.filter((p) => p.id !== id);
-    setUserProducts(updated);
-  }
+    const lng =
+      localStorage.getItem("appLng") ||
+      navigator.language.split("-")[0] ||
+      "en";
+    loadLanguage(lng);
+  }, []);
 
   return (
-    <div>
-      <Navbar search={search} setSearch={setSearch} />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              search={search}
-              userProducts={userProducts}
-            />
-          }
-        />
-
-        <Route
-          path="/products"
-          element={
-            <ProductsPage
-              search={search}
-              userProducts={userProducts}
-              editProduct={editProduct}
-              deleteProduct={deleteProduct}
-            />
-          }
-        />
-
-        <Route
-          path="/categories"
-          element={<CategoriesPage search={search} />}
-        />
-
-        <Route
-          path="/add-product"
-          element={<AddProductPage addProduct={addProduct} />}
-        />
-
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <main style={{ paddingTop: 16 }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/add" element={<AddProduct />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/category/:cat" element={<Category />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }

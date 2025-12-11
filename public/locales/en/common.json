@@ -1,0 +1,64 @@
+{
+  "appName": "Global Shop",
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "login": "Login",
+    "logout": "Logout",
+    "cart": "Cart"
+  },
+  "search": {
+    "placeholder": "Search for products..."
+  },
+  "product": {
+    "view": "View",
+    "addToCart": "Add to cart",
+    "price": "Price",
+    "category": "Category",
+    "description": "Description",
+    "details": "Product Details",
+    "noProducts": "No products found"
+  },
+  "categories": {
+    "title": "All Categories",
+    "noProducts": "No products available in this category"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "remove": "Remove",
+    "checkout": "Checkout"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "switchToRegister": "Create account",
+    "switchToLogin": "Already have an account?",
+    "submit": "Submit"
+  },
+  "home": {
+    "welcome": "Your One-Stop Online Shopping Destination",
+    "subtitle": "Shop from thousands of products across electronics, fashion, home & more",
+    "categories": "Categories",
+    "trending": "Trending Products",
+    "featured": "Featured Products",
+    "searchResults": "Search results for"
+  },
+
+  "category": {
+    "mobilePhones": "Mobile Phones",
+    "laptops": "Laptops",
+    "headphones": "Headphones",
+    "fashion": "Fashion",
+    "sports": "Sports",
+    "homeKitchen": "Home & Kitchen"
+  },
+  "products": {
+    "title": "Products"
+  }
+}
