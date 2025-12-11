@@ -1,8 +1,67 @@
 {
-  "title": "عرض متعدد اللغات",
-  "description": "غيّر اللغة لمشاهدة الانتقال بين LTR و RTL وتنسيق التواريخ.",
-  "greeting": "مرحبا، {{name}}!",
-  "currentDate": "التاريخ الحالي: {{date}}",
-  "price": "السعر: {{price}}",
-  "sampleText": "هذه فقرة نموذجية لعرض اتجاه تخطيط الصفحة."
+  "siteName": "المتجر العالمي",
+  "home": "الرئيسية",
+  "products": "المنتجات",
+  "addProduct": "إضافة منتج",
+  "login": "تسجيل الدخول",
+  "categories": "الفئات",
+
+  "searchPlaceholder": "ابحث عن المنتجات...",
+  "noProducts": "لا توجد منتجات.",
+
+  "productName": "اسم المنتج",
+  "description": "الوصف",
+  "price": "السعر",
+  "category": "الفئة",
+  "imageUrl": "رابط الصورة (أو رفع)",
+
+  "add": "إضافة",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "view": "عرض",
+
+  "nameRequired": "الاسم مطلوب.",
+  "priceRequired": "السعر مطلوب.",
+  "invalidPrice": "سعر غير صالح.",
+
+  "addedSuccess": "تمت إضافة المنتج بنجاح.",
+  "loginSuccess": "تم تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "deleted": "تم حذف المنتج",
+  "confirmDelete": "هل أنت متأكد؟",
+
+  "heroSubtitle": "تسوق أفضل المنتجات من جميع أنحاء العالم.",
+  "shopNow": "تسوق الآن",
+  "freeShipping": "شحن مجاني للطلبات التي تزيد عن 50 دولارًا",
+
+  "postsTitle": "المنتجات",
+
+  "sampleProducts": [
+    {
+      "id": "p1",
+      "title": "قميص قطني",
+      "excerpt": "قميص قطني ناعم ومريح للاستخدام اليومي.",
+      "price": 19.99,
+      "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=60",
+      "category": "الملابس"
+    },
+    {
+      "id": "p2",
+      "title": "حذاء كلاسيكي",
+      "excerpt": "حذاء أنيق للأنشطة اليومية.",
+      "price": 59.99,
+      "image": "https://images.unsplash.com/photo-1526178613178-6c4e0e2f3c96?w=800&q=60",
+      "category": "الأحذية"
+    },
+    {
+      "id": "p3",
+      "title": "محفظة جلدية",
+      "excerpt": "محفظة جلدية فاخرة مع عدة فتحات.",
+      "price": 29.5,
+      "image": "https://images.unsplash.com/photo-1604147706286-1b8f2c2b0c72?w=800&q=60",
+      "category": "الإكسسوارات"
+    }
+  ]
 }

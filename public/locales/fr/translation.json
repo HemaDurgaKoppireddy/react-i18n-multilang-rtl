@@ -1,8 +1,67 @@
 {
-  "title": "Démonstration internationalisée",
-  "description": "Changez la langue pour voir LTR ↔ RTL et le formatage local.",
-  "greeting": "Bonjour, {{name}}!",
-  "currentDate": "Date actuelle : {{date}}",
-  "price": "Prix : {{price}}",
-  "sampleText": "Ceci est un paragraphe exemple pour montrer la direction de mise en page."
+  "siteName": "Boutique Globale",
+  "home": "Accueil",
+  "products": "Produits",
+  "addProduct": "Ajouter un produit",
+  "login": "Connexion",
+  "categories": "Catégories",
+
+  "searchPlaceholder": "Rechercher des produits...",
+  "noProducts": "Aucun produit trouvé.",
+
+  "productName": "Nom du produit",
+  "description": "Description",
+  "price": "Prix",
+  "category": "Catégorie",
+  "imageUrl": "URL de l'image (ou téléchargement)",
+
+  "add": "Ajouter",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "save": "Enregistrer",
+  "cancel": "Annuler",
+  "view": "Voir",
+
+  "nameRequired": "Le nom est requis.",
+  "priceRequired": "Le prix est requis.",
+  "invalidPrice": "Prix invalide.",
+
+  "addedSuccess": "Produit ajouté avec succès.",
+  "loginSuccess": "Connecté",
+  "logout": "Déconnexion",
+  "deleted": "Produit supprimé",
+  "confirmDelete": "Êtes-vous sûr ?",
+
+  "heroSubtitle": "Découvrez les meilleurs produits du monde entier.",
+  "shopNow": "Acheter maintenant",
+  "freeShipping": "Livraison gratuite pour les commandes de plus de 50 €",
+
+  "postsTitle": "Produits",
+
+  "sampleProducts": [
+    {
+      "id": "p1",
+      "title": "T-shirt en coton",
+      "excerpt": "T-shirt en coton doux, confortable pour un usage quotidien.",
+      "price": 19.99,
+      "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=60",
+      "category": "Vêtements"
+    },
+    {
+      "id": "p2",
+      "title": "Baskets classiques",
+      "excerpt": "Baskets élégantes pour les activités quotidiennes.",
+      "price": 59.99,
+      "image": "https://images.unsplash.com/photo-1526178613178-6c4e0e2f3c96?w=800&q=60",
+      "category": "Chaussures"
+    },
+    {
+      "id": "p3",
+      "title": "Portefeuille en cuir",
+      "excerpt": "Portefeuille en cuir premium avec plusieurs compartiments.",
+      "price": 29.5,
+      "image": "https://images.unsplash.com/photo-1604147706286-1b8f2c2b0c72?w=800&q=60",
+      "category": "Accessoires"
+    }
+  ]
 }

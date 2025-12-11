@@ -1,65 +1,89 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
-
-
-import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './components/LanguageSwitcher';
-import DemoContent from './components/DemoContent';
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
+import CategoriesPage from "./pages/CategoriesPage";
+import AddProductPage from "./pages/AddProductPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
+  // SEARCH STATE
+  const [search, setSearch] = useState("");
+
+  // USER PRODUCTS
+  const [userProducts, setUserProducts] = useState(
+    JSON.parse(localStorage.getItem("userProducts") || "[]")
+  );
+
+  // SAVE TO LOCAL STORAGE
   useEffect(() => {
-    const lang = i18n.resolvedLanguage || i18n.language || 'en';
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  }, [i18n.language, i18n.resolvedLanguage]);
+    localStorage.setItem("userProducts", JSON.stringify(userProducts));
+  }, [userProducts]);
+
+  // ADD PRODUCT
+  function addProduct(product) {
+    const updated = [...userProducts, product];
+    setUserProducts(updated);
+  }
+
+  // EDIT PRODUCT
+  function editProduct(id, updatedData) {
+    const updated = userProducts.map((p) =>
+      p.id === id ? { ...p, ...updatedData } : p
+    );
+    setUserProducts(updated);
+  }
+
+  // DELETE PRODUCT
+  function deleteProduct(id) {
+    const updated = userProducts.filter((p) => p.id !== id);
+    setUserProducts(updated);
+  }
 
   return (
-    <div className="app">
-      <header className="top">
-        <LanguageSwitcher />
-      </header>
+    <div>
+      <Navbar search={search} setSearch={setSearch} />
 
-      <main>
-        <DemoContent />
-      </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              search={search}
+              userProducts={userProducts}
+            />
+          }
+        />
 
-      <footer>© Your Name</footer>
+        <Route
+          path="/products"
+          element={
+            <ProductsPage
+              search={search}
+              userProducts={userProducts}
+              editProduct={editProduct}
+              deleteProduct={deleteProduct}
+            />
+          }
+        />
+
+        <Route
+          path="/categories"
+          element={<CategoriesPage search={search} />}
+        />
+
+        <Route
+          path="/add-product"
+          element={<AddProductPage addProduct={addProduct} />}
+        />
+
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
     </div>
   );
 }
