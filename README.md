@@ -1,42 +1,99 @@
-<!-- # React + Vite
+# react-i18n-multilang-rtl
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Production-ready demo of an internationalized single-page React application with full LTR/RTL support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live demo
+Live app: <https://react-i18n-multilang-rtl.vercel.app/>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Repo contents
 
-## Expanding the ESLint configuration
+- `src/i18n` – i18n initialization + lazy-loaded locale files (en, es, ja, ar)
+- `src/components/LanguageSwitcher.jsx` – UI for switching languages (persists to localStorage)
+- `src/utils/formatters.js` – Date/number/currency helpers using `Intl`
+- `src/styles/global.css` – Uses CSS logical properties for RTL support
+- `tests/` – Unit, e2e, and accessibility tests
+- `screenshots/` – Required screenshots for submission
+- `video-demo.mp4` – 2–4 minute walkthrough demonstrating features
+- `submission.yml` – Pipeline file (required for graders)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
- -->
+---
+
+## Requirements covered
+
+This project implements:
+
+- Support for 4 languages:  
+  **English (en)**, **Spanish (es)**, **Japanese (ja)**, **Arabic (ar - RTL)**
+- All UI text translated (buttons, labels, navigation, product text, dynamic content)
+- Language switcher with persistence using `localStorage`
+- Automatic browser-language detection on first visit
+- Fallback system → English
+- Locale-based formatting for:
+  - Dates  
+  - Numbers  
+  - Currency  
+- Full RTL support:
+  - CSS logical properties (`margin-inline`, `padding-inline`, `text-align: start`)
+  - Mirrored icons using `scaleX(-1)`
+  - Automatic layout flip when language = Arabic
+- Lazy-loading translation files using dynamic `import()`
+- Dynamically updates `<html lang>` and `<html dir>`
+- Dynamic `hreflang` meta tags for multilingual SEO
 
 
- # react-i18n-multilang-rtl
+## LanguageSwitcher handles:
 
-React + Vite sample project demonstrating internationalization (i18n) with i18next.
-Supports: English (en), French (fr), Spanish (es), Arabic (ar - RTL).
+   - i18n.changeLanguage(code)
 
-## Features
-- Lazy-loaded translations (i18next-http-backend)
-- Language auto-detection and persistence
-- RTL support (document.dir toggles)
-- Locale-aware formatting with Intl
-- Simple tests & submission.yml for graders
+   - Storing selected language in localStorage
 
-## Run locally
-1. Install dependencies
-2. Start dev server
-   Open http://localhost:5173
-3. Build
+   - Updating <html lang> attribute
+
+   - Updating <html dir> attribute (LTR ↔ RTL)
+
+## Language detection order:
+
+   - Check localStorage.locale
+
+   - Check browser navigator.language
+
+   - Fallback to English (en)
+
+## SEO and Routing
+
+   - Dynamic <html lang="xx">
+
+   - Dynamic <html dir="ltr|rtl">
+
+   - hreflang meta tags generated via react-helmet
+
+## Helps ensure:
+
+   - correct indexing
+
+   - multilingual pages linked properly
+
+   - better international SEO ranking
+
+## RTL Support
+
+   - Arabic language automatically triggers RTL:
+
+   - Layout flips using CSS logical properties
+
+   - No separate RTL stylesheet necessary
+
+   - Icons flip using:
 
 
-## Notes
-- Place translation files in `public/locales/{lng}/translation.json`.
-- Record a brief demo (2-4 minutes) showing language switching, RTL flip (Arabic), and different screen sizes.
+## Verified on:
 
+   - Desktop
+
+   - Mobile
+
+   - Multiple screen sizes

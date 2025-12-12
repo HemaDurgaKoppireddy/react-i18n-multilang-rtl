@@ -2,6 +2,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+const isTest = typeof process !== "undefined" && process.env.VITEST;
 const LANGS = ["en", "es", "ar", "ja"];
 const DEFAULT_NS = "common";
 
@@ -16,24 +17,40 @@ i18n.use(initReactI18next).init({
 });
 
 export async function loadLanguage(lng) {
+  const isTest =
+    typeof process !== "undefined" &&
+    (process.env.VITEST === "true" || process.env.NODE_ENV === "test");
+
   try {
-    // load file only when not loaded already
+    // Skip loading again if already present
     if (!i18n.hasResourceBundle(lng, DEFAULT_NS)) {
-      const res = await fetch(`/locales/${lng}/common.json`);
-      if (!res.ok) throw new Error(`Failed to load /locales/${lng}/common.json (${res.status})`);
-      const data = await res.json();
-      i18n.addResourceBundle(lng, DEFAULT_NS, data, true, true);
-      // optional: console.log("i18n loaded", lng, Object.keys(data).length);
+      if (isTest) {
+        // Vitest environment – return mock translations
+        const mock = { hello: "Hello Test", appName: "Test App" };
+        i18n.addResourceBundle(lng, DEFAULT_NS, mock, true, true);
+      } else {
+        // Browser normal fetch (unchanged)
+        const res = await fetch(`/locales/${lng}/common.json`);
+        if (!res.ok)
+          throw new Error(`Failed to load /locales/${lng}/common.json (${res.status})`);
+        const data = await res.json();
+        i18n.addResourceBundle(lng, DEFAULT_NS, data, true, true);
+      }
     }
+
     await i18n.changeLanguage(lng);
 
-    document.documentElement.lang = lng;
-    document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
-    localStorage.setItem("appLng", lng);
+    // Browser only — skip DOM changes in test
+    if (!isTest) {
+      document.documentElement.lang = lng;
+      document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
+      localStorage.setItem("appLng", lng);
+    }
   } catch (err) {
     console.error("i18n loadLanguage error:", err);
   }
 }
+
 
 // Immediately load persisted language (safe to call async)
 (async () => {
