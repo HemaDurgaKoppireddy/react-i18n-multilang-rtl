@@ -1,40 +1,42 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Header from "./components/Header";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
-import AddProduct from "./pages/AddProduct";
+import Categories from "./pages/Categories";
+import Category from "./pages/Category";
 import ProductDetails from "./pages/ProductDetails";
-import Category from "./pages/Category";  // Make sure this file exists
+import AddProduct from "./pages/AddProduct";
 import Cart from "./pages/Cart";
 import Settings from "./pages/Settings";
-
-import { loadLanguage } from "./i18n";
+import Header from "./components/Header";
+import { ProductProvider } from "./context/ProductContext";   // ✅ IMPORTANT
+import "./styles.css";
 
 export default function App() {
-  useEffect(() => {
-    const lng =
-      localStorage.getItem("appLng") ||
-      navigator.language.split("-")[0] ||
-      "en";
-    loadLanguage(lng);
-  }, []);
-
   return (
-    <BrowserRouter>
-      <Header />
-      <main style={{ paddingTop: 16 }}>
+    <ProductProvider>     {/* ✅ Wrap everything inside provider */}
+      <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/add" element={<AddProduct />} />
+
+          {/* Categories */}
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/category/:slug" element={<Category />} />
+
+          {/* Product details */}
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/category/:cat" element={<Category />} />
+
+          {/* Add product */}
+          <Route path="/add-product" element={<AddProduct />} />
+
+          {/* Cart Page */}
           <Route path="/cart" element={<Cart />} />
+
+          {/* Settings */}
           <Route path="/settings" element={<Settings />} />
         </Routes>
-      </main>
-    </BrowserRouter>
+      </Router>
+    </ProductProvider>
   );
 }

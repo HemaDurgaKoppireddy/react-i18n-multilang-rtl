@@ -9,8 +9,8 @@ export default function Products() {
   const location = useLocation();
   const { t } = useTranslation("common");
 
-  const params = new URLSearchParams(location.search);
-  const searchQuery = params.get("search") || "";
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get("search")?.toLowerCase() || "";
 
   const filtered = searchQuery ? searchProducts(searchQuery) : products;
 

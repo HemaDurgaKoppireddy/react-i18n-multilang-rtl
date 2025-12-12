@@ -1,14 +1,21 @@
+// src/components/Header.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { loadLanguage } from "../i18n";
 import CartWidget from "./CartWidget";
 import AuthModal from "./AuthModal";
 import { useAuth } from "../context/AuthContext";
+import "../styles.css";
+
+/* ICON HEXCODES */
+const ICON_MENU = "≡";  
+const ICON_CLOSE = "✕";
 
 export default function Header() {
-  const { i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
   const navigate = useNavigate();
+  const location = useLocation();
   const { current, logout } = useAuth();
 
   const [query, setQuery] = useState("");
@@ -19,6 +26,7 @@ export default function Header() {
 
   const langRef = useRef();
 
+  /* CLOSE LANGUAGE DROPDOWN ON OUTSIDE CLICK */
   useEffect(() => {
     function onClick(e) {
       if (langRef.current && !langRef.current.contains(e.target)) {
@@ -29,9 +37,15 @@ export default function Header() {
     return () => window.removeEventListener("click", onClick);
   }, []);
 
+  /* RTL SWITCH */
   useEffect(() => {
     document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
   }, [i18n.language]);
+
+  /* CLEAR SEARCH WHEN NAVIGATING */
+  useEffect(() => {
+    setQuery("");
+  }, [location.pathname]);
 
   async function changeLanguage(lng) {
     await loadLanguage(lng);
@@ -40,48 +54,64 @@ export default function Header() {
 
   function handleSearch(e) {
     e.preventDefault();
-    if (!query.trim()) return;
-
-    navigate(`/products?search=${encodeURIComponent(query.trim())}`);
+    const q = query.trim();
+    if (!q) return;
+    navigate(`/products?search=${encodeURIComponent(q)}`);
     setMobileOpen(false);
   }
 
   return (
     <>
-      {/* HEADER */}
+      {/* ==================== DESKTOP / TABLET HEADER ==================== */}
       <header className="site-header">
+        {/* LEFT SIDE */}
         <div className="header-left">
+          {/* MOBILE MENU BUTTON */}
           <button className="hamburger" onClick={() => setMobileOpen(true)}>
-            <span className="hamburger-bar" />
-            <span className="hamburger-bar" />
-            <span className="hamburger-bar" />
+            {ICON_MENU}
           </button>
 
+          {/* BRAND NAME (TRANSLATED) */}
           <Link to="/" className="brand">
-            <span className="brand-mark">Global Shop</span>
+            <span className="brand-mark">{t("app_name")}</span>
           </Link>
 
-          <nav className="main-nav">
-            <NavLink to="/" className="nav-link">Home</NavLink>
-            <NavLink to="/products" className="nav-link">Products</NavLink>
-            <NavLink to="/category/Mobile%20Phones" className="nav-link">Categories</NavLink>
+          {/* DESKTOP NAVIGATION */}
+          <nav className="main-nav desktop-only">
+            <NavLink to="/" className="nav-link">
+              {t("nav.home")}
+            </NavLink>
+
+            <NavLink to="/products" className="nav-link">
+              {t("nav.products")}
+            </NavLink>
+
+            <NavLink to="/categories" className="nav-link">
+              {t("nav.categories")}
+            </NavLink>
           </nav>
         </div>
 
-        {/* SEARCH */}
-        <form className="header-search" onSubmit={handleSearch}>
+        {/* SEARCH (DESKTOP ONLY) */}
+        <form className="header-search desktop-only" onSubmit={handleSearch}>
           <input
             type="search"
-            placeholder="Search for products..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("search.placeholder")}
+            onChange={(e) => {
+              const value = e.target.value;
+              setQuery(value);
+
+              // LIVE SEARCH NAVIGATION
+              navigate(`/products?search=${encodeURIComponent(value)}`);
+            }}
           />
         </form>
 
         {/* RIGHT SIDE */}
         <div className="header-right">
-          {/* LANGUAGE */}
-          <div className="lang-wrap" ref={langRef}>
+          {/* LANGUAGE SWITCHER */}
+          <div className="lang-wrap desktop-only" ref={langRef}>
             <button
               className="lang-toggle"
               onClick={(e) => {
@@ -89,101 +119,159 @@ export default function Header() {
                 setLangOpen(!langOpen);
               }}
             >
-              🌐 {i18n.language.toUpperCase()}
+              🌐 {t(`languages.${i18n.language}`)}
             </button>
 
             {langOpen && (
               <div className="lang-dropdown">
-                <div className="lang-item" onClick={() => changeLanguage("en")}>English</div>
-                <div className="lang-item" onClick={() => changeLanguage("es")}>Español</div>
-                <div className="lang-item" onClick={() => changeLanguage("ar")}>العربية</div>
-                <div className="lang-item" onClick={() => changeLanguage("ja")}>日本語</div>
+                {["en", "es", "ar", "ja"].map((lng) => (
+                  <div
+                    key={lng}
+                    className="lang-item"
+                    onClick={() => changeLanguage(lng)}
+                  >
+                    {t(`languages.${lng}`)}
+                  </div>
+                ))}
               </div>
             )}
           </div>
 
-          {/* USER */}
+          {/* USER PROFILE DROPDOWN */}
           {current ? (
             <div className="user-profile desktop-only">
               <div
                 className="user-name"
-                onClick={() => setUserDropdown((prev) => !prev)}
-                style={{ cursor: "pointer", fontWeight: 600 }}
+                onClick={() => setUserDropdown((p) => !p)}
               >
-                Hello, {current.name.split(" ")[0]} ▼
+                {t("nav.hello")}, {current.name.split(" ")[0]} ▼
               </div>
 
               {userDropdown && (
                 <div className="user-dropdown">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      navigate("/add-product");
+                      setUserDropdown(false);
+                    }}
+                  >
+                    {t("nav.addProduct")}
+                  </button>
+
                   <button className="dropdown-item" onClick={logout}>
-                    Logout
+                    {t("nav.logout")}
                   </button>
                 </div>
               )}
             </div>
           ) : (
-            <button className="login-link" onClick={() => setAuthOpen(true)}>
-              Login
+            <button
+              className="login-link desktop-only"
+              onClick={() => setAuthOpen(true)}
+            >
+              {t("nav.login")}
             </button>
           )}
 
-          <CartWidget />
+          {/* CART */}
+          <CartWidget mobileLabel={t("nav.cart")} />
         </div>
       </header>
 
-      {/* MOBILE DRAWER */}
+      {/* ==================== MOBILE MENU DRAWER ==================== */}
       <aside className={`mobile-drawer ${mobileOpen ? "open" : ""}`}>
         <div className="drawer-header">
-          <div className="brand">Global Shop</div>
-          <button className="drawer-close" onClick={() => setMobileOpen(false)}>✕</button>
+          <div className="brand">{t("app_name")}</div>
+          <button className="drawer-close" onClick={() => setMobileOpen(false)}>
+            {ICON_CLOSE}
+          </button>
         </div>
 
         <div className="drawer-content">
+          {/* SEARCH */}
           <form className="drawer-search" onSubmit={handleSearch}>
             <input
               type="search"
-              placeholder="Search..."
+              placeholder={t("search.placeholder")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </form>
 
+          {/* NAVIGATION */}
           <nav className="drawer-nav">
-            <Link to="/" className="drawer-link" onClick={() => setMobileOpen(false)}>Home</Link>
-            <Link to="/products" className="drawer-link" onClick={() => setMobileOpen(false)}>Products</Link>
-            <Link to="/category/Mobile%20Phones" className="drawer-link" onClick={() => setMobileOpen(false)}>Categories</Link>
+            <Link to="/" onClick={() => setMobileOpen(false)}>
+              {t("nav.home")}
+            </Link>
+
+            <Link to="/products" onClick={() => setMobileOpen(false)}>
+              {t("nav.products")}
+            </Link>
+
+            <Link to="/categories" onClick={() => setMobileOpen(false)}>
+              {t("nav.categories")}
+            </Link>
+
+            <Link to="/cart" onClick={() => setMobileOpen(false)}>
+              {t("nav.cart")}
+            </Link>
           </nav>
 
+          {/* LANGUAGE */}
           <div className="drawer-section">
-            <div className="drawer-title">Language</div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button className="chip" onClick={() => changeLanguage("en")}>EN</button>
-              <button className="chip" onClick={() => changeLanguage("es")}>ES</button>
-              <button className="chip" onClick={() => changeLanguage("ar")}>AR</button>
-              <button className="chip" onClick={() => changeLanguage("ja")}>JA</button>
+            <div className="drawer-title">{t("nav.language")}</div>
+            <div className="drawer-lang-list">
+              {["en", "es", "ar", "ja"].map((lng) => (
+                <button
+                  key={lng}
+                  className="chip"
+                  onClick={() => changeLanguage(lng)}
+                >
+                  {lng.toUpperCase()}
+                </button>
+              ))}
             </div>
           </div>
 
-          {current ? (
+          {/* USER ACTIONS */}
+          {current && (
             <div className="drawer-section">
-              <p>Hello, {current.name}</p>
-              <button className="btn ghost" onClick={() => { logout(); setMobileOpen(false); }}>
-                Logout
+              <p>
+                {t("nav.hello")}, {current.name}
+              </p>
+
+              <button
+                className="btn ghost"
+                onClick={() => {
+                  navigate("/add-product");
+                  setMobileOpen(false);
+                }}
+              >
+                {t("nav.addProduct")}
+              </button>
+
+              <button
+                className="btn ghost"
+                onClick={() => {
+                  logout();
+                  setMobileOpen(false);
+                }}
+              >
+                {t("nav.logout")}
               </button>
             </div>
-          ) : (
-            <button className="drawer-cta" onClick={() => { setMobileOpen(false); setAuthOpen(true); }}>
-              Login
-            </button>
           )}
         </div>
       </aside>
 
+      {/* BACKDROP */}
       <div
         className={`drawer-backdrop ${mobileOpen ? "visible" : ""}`}
         onClick={() => setMobileOpen(false)}
       />
 
+      {/* AUTH MODAL */}
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
   );

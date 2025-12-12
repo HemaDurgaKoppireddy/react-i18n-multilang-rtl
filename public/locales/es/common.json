@@ -1,12 +1,22 @@
 {
-  "appName": "Tienda Global",
+  "app_name": "Tienda Global",
+  "languages": {
+    "en": "Inglés",
+    "es": "Español",
+    "ar": "Árabe",
+    "ja": "Japonés"
+  },
+  "search_placeholder": "Buscar productos...",
   "nav": {
     "home": "Inicio",
     "products": "Productos",
     "categories": "Categorías",
-    "login": "Iniciar sesión",
+    "hello": "Hola",
+    "cart": "Tu Carrito",
+    "addProduct": "Agregar Producto",
     "logout": "Cerrar sesión",
-    "cart": "Carrito"
+    "language": "Idioma",
+    "login": "Iniciar sesión"
   },
   "search": {
     "placeholder": "Buscar productos..."
@@ -49,15 +59,21 @@
     "featured": "Productos Destacados",
     "searchResults": "Resultados de búsqueda para"
   },
-
   "category": {
-    "mobilePhones": "Teléfonos móviles",
-    "laptops": "Portátiles",
-    "headphones": "Auriculares",
-    "fashion": "Moda",
-    "sports": "Deportes",
-    "homeKitchen": "Hogar y cocina"
-  },
+  "mobile-phones": "Teléfonos móviles",
+  "laptops": "Portátiles",
+  "headphones": "Auriculares",
+  "fashion": "Moda",
+  "sports": "Deportes",
+  "home-kitchen": "Hogar y Cocina",
+  "books-media": "Libros y Multimedia",
+  "television": "Televisión",
+  "cameras": "Cámaras",
+  "speakers": "Altavoces",
+  "accessories": "Accesorios",
+  "wearables": "Wearables",
+  "noProducts": "No se encontraron productos en esta categoría."
+},
   "products": {
     "title": "Productos"
   }

@@ -1,12 +1,22 @@
 {
-  "appName": "グローバルショップ",
+  "app_name": "グローバルショップ",
+  "languages": {
+    "en": "英語",
+    "es": "スペイン語",
+    "ar": "アラビア語",
+    "ja": "日本語"
+  },
+  "search_placeholder": "商品を検索...",
   "nav": {
     "home": "ホーム",
-    "products": "商品一覧",
-    "categories": "カテゴリー",
-    "login": "ログイン",
+    "products": "製品",
+    "categories": "カテゴリ",
+    "hello": "こんにちは",
+    "cart": "カート",
+    "addProduct": "商品追加",
     "logout": "ログアウト",
-    "cart": "カート"
+    "language": "言語",
+    "login": "ログイン"
   },
   "search": {
     "placeholder": "商品を検索..."
@@ -51,13 +61,20 @@
   },
 
   "category": {
-    "mobilePhones": "スマートフォン",
-    "laptops": "ノートパソコン",
-    "headphones": "ヘッドホン",
-    "fashion": "ファッション",
-    "sports": "スポーツ",
-    "homeKitchen": "ホーム＆キッチン"
-  },
+  "mobile-phones": "スマートフォン",
+  "laptops": "ノートパソコン",
+  "headphones": "ヘッドホン",
+  "fashion": "ファッション",
+  "sports": "スポーツ",
+  "home-kitchen": "ホーム＆キッチン",
+  "books-media": "書籍・メディア",
+  "television": "テレビ",
+  "cameras": "カメラ",
+  "speakers": "スピーカー",
+  "accessories": "アクセサリー",
+  "wearables": "ウェアラブル",
+  "noProducts": "このカテゴリには商品がありません。"
+},
   "products": {
     "title": "製品一覧"
   }

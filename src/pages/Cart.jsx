@@ -2,45 +2,100 @@ import React from "react";
 import { useProducts } from "../context/ProductContext";
 import { useTranslation } from "react-i18next";
 
-export default function Cart(){
-  const { cart, products, removeFromCart, clearCart } = useProducts();
+export default function CartDrawer({ isOpen, closeCart }) {
+  const { cart, products, removeFromCart, updateCart } = useProducts();
   const { t, i18n } = useTranslation("common");
 
-  const items = Object.entries(cart).map(([id, qty])=>{
-    const p = products.find(x=>x.id===id);
-    if(!p) return null;
-    const name = p.names[i18n.language] || p.names.en || Object.values(p.names)[0];
-    return { id, qty, name, price: p.price };
-  }).filter(Boolean);
+  const items = Object.entries(cart)
+    .map(([id, qty]) => {
+      const p = products.find((x) => x.id === id);
+      if (!p) return null;
+      return {
+        id,
+        qty,
+        name: p.names[i18n.language] || p.names.en,
+        price: p.price,
+        category: p.category[i18n.language] || p.category.en,
+        image: p.image,
+      };
+    })
+    .filter(Boolean);
 
-  const total = items.reduce((s,it)=>s + it.price * it.qty, 0);
+  const total = items.reduce((sum, it) => sum + it.price * it.qty, 0);
 
   return (
-    <div className="container">
-      <h2>{t("nav.cart")}</h2>
-      <div className="card">
-        {items.length===0 ? <p>{t("cart.empty")}</p> :
-          <div>
-            {items.map(it => (
-              <div key={it.id} style={{display:"flex", justifyContent:"space-between", padding:"8px 0"}}>
-                <div>{it.name} x {it.qty}</div>
-                <div>
-                  {new Intl.NumberFormat(i18n.language, {style:"currency", currency: i18n.language==="es"? "EUR": (i18n.language==="ja"? "JPY": (i18n.language==="ar"? "AED":"USD"))}).format(it.price * it.qty)}
-                  <button className="btn btn-ghost" onClick={()=>removeFromCart(it.id)} style={{marginLeft:8}}>Remove</button>
+    <>
+      {/* Overlay */}
+      <div
+        className={`cart-overlay ${isOpen ? "open" : ""}`}
+        onClick={closeCart}
+      ></div>
+
+      {/* Drawer */}
+      <div className={`cart-drawer ${isOpen ? "open" : ""}`}>
+        {/* Header */}
+        <div className="cart-head">
+          <h3>{t("nav.cart")}</h3>
+          <button className="drawer-close" onClick={closeCart}>
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="cart-body">
+          {items.length === 0 ? (
+            <p>{t("cart.empty")}</p>
+          ) : (
+            items.map((it) => (
+              <div key={it.id} className="cart-line">
+                <div className="cart-left">
+                  <img src={it.image} alt={it.name} />
+                  <div>
+                    <strong>{it.name}</strong>
+                    <div className="cart-category">{it.category}</div>
+                  </div>
+                </div>
+
+                <div className="cart-right">
+                  <input
+                    type="number"
+                    value={it.qty}
+                    min="1"
+                    className="qty-input"
+                    onChange={(e) =>
+                      updateCart(it.id, Number(e.target.value))
+                    }
+                  />
+                  <button
+                    className="btn btn-ghost"
+                    onClick={() => removeFromCart(it.id)}
+                  >
+                    {t("remove")}
+                  </button>
                 </div>
               </div>
-            ))}
-            <hr />
-            <div style={{display:"flex", justifyContent:"space-between", paddingTop:8}}>
-              <strong>{t("total")}</strong>
-              <strong>{new Intl.NumberFormat(i18n.language, {style:"currency", currency: i18n.language==="es"? "EUR": (i18n.language==="ja"? "JPY": (i18n.language==="ar"? "AED":"USD"))}).format(total)}</strong>
-            </div>
-            <div style={{marginTop:10}}>
-              <button className="btn btn-primary" onClick={()=>{ alert(t("messages.checkout")); clearCart(); }}>{t("checkout")}</button>
-            </div>
-          </div>
-        }
+            ))
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="cart-footer">
+          <strong>{t("total")}</strong>
+          <strong>
+            {new Intl.NumberFormat(i18n.language, {
+              style: "currency",
+              currency:
+                i18n.language === "es"
+                  ? "EUR"
+                  : i18n.language === "ja"
+                  ? "JPY"
+                  : i18n.language === "ar"
+                  ? "AED"
+                  : "USD",
+            }).format(total)}
+          </strong>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

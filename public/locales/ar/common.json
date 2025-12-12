@@ -1,12 +1,22 @@
 {
-  "appName": "المتجر العالمي",
+  "app_name": "المتجر العالمي",
+  "languages": {
+    "en": "الإنجليزية",
+    "es": "الإسبانية",
+    "ar": "العربية",
+    "ja": "اليابانية"
+  },
+  "search_placeholder": "ابحث عن المنتجات...",
   "nav": {
     "home": "الرئيسية",
     "products": "المنتجات",
     "categories": "الفئات",
-    "login": "تسجيل الدخول",
-    "logout": "تسجيل الخروج",
-    "cart": "السلة"
+    "hello": "مرحباً",
+    "cart": "عربة التسوق",
+    "addProduct": "إضافة منتج",
+    "logout": "تسجيل خروج",
+    "language": "اللغة",
+    "login": "تسجيل الدخول"
   },
   "search": {
     "placeholder": "ابحث عن المنتجات..."
@@ -51,13 +61,20 @@
   },
 
   "category": {
-    "mobilePhones": "الهواتف المحمولة",
-    "laptops": "أجهزة اللابتوب",
-    "headphones": "سماعات",
-    "fashion": "الأزياء",
-    "sports": "الرياضة",
-    "homeKitchen": "المنزل والمطبخ"
-  },
+  "mobile-phones": "الهواتف المحمولة",
+  "laptops": "أجهزة لابتوب",
+  "headphones": "سماعات",
+  "fashion": "أزياء",
+  "sports": "رياضة",
+  "home-kitchen": "المنزل والمطبخ",
+  "books-media": "الكتب والوسائط",
+  "television": "التلفاز",
+  "cameras": "كاميرات",
+  "speakers": "مكبرات صوت",
+  "accessories": "إكسسوارات",
+  "wearables": "الأجهزة القابلة للارتداء",
+  "noProducts": "لا توجد منتجات في هذه الفئة."
+},
   "products": {
     "title": "المنتجات"
   }

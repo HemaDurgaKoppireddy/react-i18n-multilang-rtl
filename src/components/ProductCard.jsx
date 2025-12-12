@@ -14,6 +14,35 @@ export default function ProductCard({ product }) {
   const category = product.category?.[lang] || product.category?.en || "";
   const priceText = formatPrice(product.price, lang);
 
+  /* ========== ADD-TO-CART FLYING ANIMATION ========== */
+  const handleAddToCart = (e) => {
+    addToCart(product.id);
+
+    const img = e.target.closest(".e-card").querySelector("img");
+    const cartIcon = document.querySelector(".cart-icon");
+
+    if (!img || !cartIcon) return;
+
+    const flyingImg = img.cloneNode(true);
+    flyingImg.classList.add("flying-img");
+    document.body.appendChild(flyingImg);
+
+    const imgRect = img.getBoundingClientRect();
+    const cartRect = cartIcon.getBoundingClientRect();
+
+    flyingImg.style.left = imgRect.left + "px";
+    flyingImg.style.top = imgRect.top + "px";
+
+    requestAnimationFrame(() => {
+      flyingImg.style.transform = `translate(${cartRect.left - imgRect.left}px, ${
+        cartRect.top - imgRect.top
+      }px) scale(0.1)`;
+      flyingImg.style.opacity = "0";
+    });
+
+    setTimeout(() => flyingImg.remove(), 900);
+  };
+
   return (
     <div className="e-card">
       <div className="e-card-media">
@@ -34,7 +63,10 @@ export default function ProductCard({ product }) {
               {t("product.view")}
             </Link>
 
-            <button className="btn primary" onClick={() => addToCart(product.id)}>
+            <button
+              className="btn primary"
+              onClick={handleAddToCart}
+            >
               {t("product.addToCart")}
             </button>
           </div>

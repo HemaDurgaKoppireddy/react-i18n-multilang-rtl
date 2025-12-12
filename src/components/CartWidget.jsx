@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useProducts } from "../context/ProductContext";
 import { useTranslation } from "react-i18next";
 
-export default function CartWidget() {
+export default function CartWidget({ mobileLabel }) {
   const { cart, products, updateCart, removeFromCart, clearCart, formatPrice } =
     useProducts();
   const { i18n, t } = useTranslation();
@@ -11,7 +11,7 @@ export default function CartWidget() {
 
   const lang = i18n.language || "en";
 
-  // build array of cart items
+  // Build cart item list
   const items = Object.entries(cart)
     .map(([id, qty]) => {
       const p = products.find((x) => x.id === id);
@@ -23,17 +23,23 @@ export default function CartWidget() {
 
   return (
     <>
+      {/* CART BUTTON */}
       <button
-        className="btn cart-widget"
+        className="btn cart-widget cart-icon"
         onClick={() => setOpen(true)}
         aria-label="Open cart"
       >
-        🛒 {t("cart.title")} ({items.length})
+        🛒 {mobileLabel ? mobileLabel : t("cart.title")} ({items.length})
       </button>
 
-      <aside className={`cart-drawer ${open ? "open" : ""}`}>
+      {/* CART DRAWER */}
+      <aside
+        className={`cart-drawer ${open ? "open" : ""}`}
+        onClick={(e) => e.stopPropagation()}  // ✅ FIX: prevent unwanted closing
+      >
         <div className="cart-head">
           <h3>{t("cart.title")}</h3>
+
           <button
             onClick={() => setOpen(false)}
             className="drawer-close"
@@ -89,7 +95,7 @@ export default function CartWidget() {
                           className="btn btn-ghost"
                           onClick={() => removeFromCart(it.id)}
                         >
-                          {t("cart.remove") || "Remove"}
+                          {t("cart.remove")}
                         </button>
                       </div>
                     </div>
@@ -97,17 +103,13 @@ export default function CartWidget() {
                 );
               })}
 
-              {/* Total */}
+              {/* TOTAL */}
               <div className="cart-footer">
-                <div>
-                  <strong>{t("cart.total")}</strong>
-                </div>
-                <div>
-                  <strong>{formatPrice(total, lang)}</strong>
-                </div>
+                <strong>{t("cart.total")}</strong>
+                <strong>{formatPrice(total, lang)}</strong>
               </div>
 
-              {/* Checkout */}
+              {/* CHECKOUT */}
               <div style={{ marginTop: 12 }}>
                 <button
                   className="btn primary"
@@ -125,6 +127,7 @@ export default function CartWidget() {
         </div>
       </aside>
 
+      {/* BACKDROP — Clicking closes the cart */}
       <div
         className={`drawer-backdrop ${open ? "visible" : ""}`}
         onClick={() => setOpen(false)}

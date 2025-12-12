@@ -1,12 +1,22 @@
 {
-  "appName": "Global Shop",
+  "app_name": "Global Shop",
+  "languages": {
+    "en": "English",
+    "es": "Spanish",
+    "ar": "Arabic",
+    "ja": "Japanese"
+  },
+  "search_placeholder": "Search for products...",
   "nav": {
     "home": "Home",
     "products": "Products",
     "categories": "Categories",
-    "login": "Login",
+    "hello": "Hello",
+    "cart": "Your Cart",
+    "addProduct": "Add Product",
     "logout": "Logout",
-    "cart": "Cart"
+    "language": "Language",
+    "login": "Login"
   },
   "search": {
     "placeholder": "Search for products..."
@@ -49,15 +59,21 @@
     "featured": "Featured Products",
     "searchResults": "Search results for"
   },
-
   "category": {
-    "mobilePhones": "Mobile Phones",
-    "laptops": "Laptops",
-    "headphones": "Headphones",
-    "fashion": "Fashion",
-    "sports": "Sports",
-    "homeKitchen": "Home & Kitchen"
-  },
+  "mobile-phones": "Mobile Phones",
+  "laptops": "Laptops",
+  "headphones": "Headphones",
+  "fashion": "Fashion",
+  "sports": "Sports",
+  "home-kitchen": "Home & Kitchen",
+  "books-media": "Books & Media",
+  "television": "Television",
+  "cameras": "Cameras",
+  "speakers": "Speakers",
+  "accessories": "Accessories",
+  "wearables": "Wearables",
+  "noProducts": "No products found in this category."
+},
   "products": {
     "title": "Products"
   }
