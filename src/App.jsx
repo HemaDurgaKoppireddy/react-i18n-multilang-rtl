@@ -8,12 +8,18 @@ import AddProduct from "./pages/AddProduct";
 import Cart from "./pages/Cart";
 import Settings from "./pages/Settings";
 import Header from "./components/Header";
-import { ProductProvider } from "./context/ProductContext";   // ✅ IMPORTANT
+import { ProductProvider } from "./context/ProductContext";  
+import SEO from "./components/SEO";
 import "./styles.css";
 
 export default function App() {
+  const baseUrl = "https://react-i18n-multilang-rtl.vercel.app"; // replace with your real URL
+
+  const locales = ["en", "es", "ja", "ar"];
   return (
-    <ProductProvider>     {/* ✅ Wrap everything inside provider */}
+   <>
+   <SEO baseUrl={baseUrl} locales={locales} />
+    <ProductProvider>    
       <Router>
         <Header />
         <Routes>
@@ -38,5 +44,6 @@ export default function App() {
         </Routes>
       </Router>
     </ProductProvider>
+    </>
   );
 }

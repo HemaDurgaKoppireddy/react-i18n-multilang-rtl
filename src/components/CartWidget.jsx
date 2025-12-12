@@ -35,7 +35,7 @@ export default function CartWidget({ mobileLabel }) {
       {/* CART DRAWER */}
       <aside
         className={`cart-drawer ${open ? "open" : ""}`}
-        onClick={(e) => e.stopPropagation()}  // ✅ FIX: prevent unwanted closing
+        onClick={(e) => e.stopPropagation()} 
       >
         <div className="cart-head">
           <h3>{t("cart.title")}</h3>

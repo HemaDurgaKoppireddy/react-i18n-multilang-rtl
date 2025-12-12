@@ -62,7 +62,7 @@ export default function Header() {
 
   return (
     <>
-      {/* ==================== DESKTOP / TABLET HEADER ==================== */}
+      {/* DESKTOP / TABLET HEADER */}
       <header className="site-header">
         {/* LEFT SIDE */}
         <div className="header-left">
@@ -179,7 +179,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ==================== MOBILE MENU DRAWER ==================== */}
+      {/* MOBILE MENU DRAWER  */}
       <aside className={`mobile-drawer ${mobileOpen ? "open" : ""}`}>
         <div className="drawer-header">
           <div className="brand">{t("app_name")}</div>

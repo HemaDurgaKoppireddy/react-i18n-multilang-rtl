@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
   const category = product.category?.[lang] || product.category?.en || "";
   const priceText = formatPrice(product.price, lang);
 
-  /* ========== ADD-TO-CART FLYING ANIMATION ========== */
+  /*  ADD-TO-CART FLYING ANIMATION  */
   const handleAddToCart = (e) => {
     addToCart(product.id);
 

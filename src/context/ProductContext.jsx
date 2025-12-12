@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 
 const ProductContext = createContext();
 
-// ---------- DEFAULT PRODUCTS (multilingual: names, category, description) ----------
 const DEFAULT_PRODUCTS = [
   {
     id: "p1",
@@ -353,7 +352,7 @@ const DEFAULT_PRODUCTS = [
 ];
 
 
-// ---------- localStorage keys ----------
+// localStorage keys 
 const LS_USER = "app_user_products_v1";
 const LS_PRODUCTS = "app_products_all_v1";
 const LS_CART = "app_cart_v1";
@@ -440,8 +439,8 @@ export function ProductProvider({ children }) {
     } catch (e) {}
   }, [cart]);
 
-  // ---------- Price / Currency formatter ----------
-  // map language -> currency & locale
+  //  Price / Currency formatter 
+  // map language - currency & locale
   const currencyMap = {
     en: { locale: "en-US", currency: "USD" },
     es: { locale: "es-ES", currency: "EUR" },
@@ -463,7 +462,7 @@ export function ProductProvider({ children }) {
     }
   }
 
-  // ---------- CRUD for user products ----------
+  //  CRUD for user products 
   function addProduct({ price, category, names, image, description }) {
     const id = uuidv4();
     const p = {
@@ -500,7 +499,7 @@ export function ProductProvider({ children }) {
     setUserProducts((prev) => prev.filter((p) => p.id !== id));
   }
 
-  // ---------- cart operations ----------
+  //  cart operations 
   function addToCart(productId, qty = 1) {
     setCart((prev) => {
       const next = { ...prev, [productId]: (prev[productId] || 0) + Number(qty) };
@@ -529,7 +528,7 @@ export function ProductProvider({ children }) {
     setCart({});
   }
 
-  // ---------- search across multilingual names, descriptions and categories ----------
+  // search across multilingual names, descriptions and categories 
   function searchProducts(query) {
     if (!query) return products;
     const q = query.trim().toLowerCase();
